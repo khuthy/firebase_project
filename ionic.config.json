@@ -1,0 +1,8 @@
+{
+  "name": "user-admin-final-hotel",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

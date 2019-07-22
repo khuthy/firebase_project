@@ -1,0 +1,83 @@
+<ion-header>
+
+    <ion-navbar color="primary">
+  
+      <ion-title>
+        Rooms
+      </ion-title>
+      <ion-buttons end>
+          <button ion-button icon-only (click)="takePhoto(0)">
+            <ion-icon name="attach"></ion-icon>
+          
+          </button>
+          <button ion-button icon-only (click)="presentPopover()">
+              <ion-icon name="more"></ion-icon>
+            </button>
+         
+        </ion-buttons>
+    </ion-navbar>
+  
+  </ion-header>
+<ion-content padding>
+    <div class="container">
+        <div class="form">
+          <form [formGroup]="roomForm">
+              <div class="photo">
+                  <p *ngIf="!captureDataUrl"> Upload Image (via camera or Photo Library).</p>
+                    <img [src]="captureDataUrl" alt="uploaded" *ngIf="captureDataUrl" class="img-upload">
+                    <button *ngIf="captureDataUrl" (click)="upload()" ion-button class="btn-upload" color="light">Upload Image</button>
+          
+                </div>
+                <ion-list>
+                    <ion-item>
+                    
+                        <ion-label>Select Hotel</ion-label>
+                        <ion-select formControlName="hotel" [(ngModel)]="hotel">
+                          <ion-option value="{{hotel.id}}" *ngFor="let hotel of items;">
+                            {{hotel.hotelName}}
+                          </ion-option>
+                        </ion-select>
+                </ion-item>
+                <div class="error" *ngFor="let validate of validation_messages.hotel">
+                    <div class="messages" *ngIf="roomForm.get('hotel').hasError(validate.type) && (roomForm.get('hotel').dirty || roomForm.get('hotel').touched)">
+                      {{validate.message}}
+                    </div>
+                    </div>
+
+                  <ion-item>
+                    
+                          <ion-label>Room Type</ion-label>
+                          <ion-select formControlName="roomtype" [(ngModel)]="roomtype">
+                            <ion-option value="Single">Single</ion-option>
+                            <ion-option value="Double">Double</ion-option>
+                            <ion-option value="Luxury">Luxury</ion-option>
+                            <ion-option value="Special Luxury">Special Luxury</ion-option>
+                            <ion-option value="VIP">VIP</ion-option>
+                            <ion-option value="Temporal">Temporal</ion-option>
+                          </ion-select>
+                  </ion-item>
+                  <div class="error" *ngFor="let validate of validation_messages.roomtype">
+                      <div class="messages" *ngIf="roomForm.get('roomtype').hasError(validate.type) && (roomForm.get('roomtype').dirty || roomForm.get('roomtype').touched)">
+                        {{validate.message}}
+                      </div>
+                      </div>
+                  <ion-item>
+                      <ion-label floating>Price</ion-label>
+                      <ion-input type="number" formControlName="roomprice" [(ngModel)]="roomprice"></ion-input>
+                    </ion-item>
+                    <div class="error" *ngFor="let validate of validation_messages.roomprice">
+                        <div class="messages" *ngIf="roomForm.get('roomprice').hasError(validate.type) && (roomForm.get('roomprice').dirty || roomForm.get('roomprice').touched)">
+                          {{validate.message}}
+                        </div>
+                        </div>
+                        <br>
+                        <button ion-button color="dark" round full [disabled]="roomForm.valid" (click)="createRoom()">Create Room</button>
+                </ion-list>
+          </form>
+          
+        </div>
+      </div>
+      <ion-fab right bottom>
+          <button ion-fab color="primary" (click)="takePhoto(1)"><ion-icon name="md-camera"></ion-icon></button>
+        </ion-fab>
+</ion-content>

@@ -1,14 +1,42 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
 
+    <ion-navbar color="primary">
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+  
+      <ion-title>
+        Home
+      </ion-title>
+  
+      <ion-buttons end>
+        <button ion-button icon-only (click)="presentPopover()">
+          <ion-icon name="more"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  
+  </ion-header>
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+
+  <div class="container">
+    <div class="hotels" *ngFor="let item of items;" (click)="view()">
+      <div class="cover">
+         <img src="{{item.image}}" alt="item.hotelName" class="imges">
+         <article class="text-btn">
+            <h3>{{item.hotelName}}</h3>
+            <p>{{item.Description}}</p>
+         <ion-row>
+           <ion-col col-4><button ion-button clear only-icon><ion-icon name="heart"></ion-icon></button></ion-col>
+           <ion-col col-4></ion-col>
+           <ion-col col-4></ion-col>
+         </ion-row>
+        </article>
+     
+      </div>
+     
+    </div>
+    <div class="rooms"></div>
+  </div>
+ 
 </ion-content>

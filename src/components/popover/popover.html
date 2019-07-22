@@ -1,0 +1,26 @@
+<!-- Generated template for the PopoverComponent component -->
+<div>
+  <ion-buttons end>
+    <button ion-button icon-only clear (click)="close()">&times;</button>
+  </ion-buttons>
+  <ion-list>
+      <ion-item (click)="home()"> 
+          <p><ion-icon name="home"></ion-icon> Home</p>
+        </ion-item>
+    <ion-item (click)="profile()"> 
+      <p><ion-icon name="person"></ion-icon> Profile</p>
+    </ion-item>
+    <ion-item (click)="history()"> 
+        <p><ion-icon name="refresh"></ion-icon> History</p>
+      </ion-item>
+      <ion-item (click)="hotels()"> 
+          <p><ion-icon name="bed"></ion-icon> Hotels</p>
+        </ion-item>
+        <ion-item (click)="rooms()"> 
+            <p><ion-icon name="add-circle"></ion-icon> Rooms</p>
+          </ion-item>
+          <ion-item (click)="signout()"> 
+              <p><ion-icon name="log-out"></ion-icon> Sign Out</p>
+            </ion-item>
+  </ion-list>
+</div>

@@ -1,0 +1,84 @@
+
+
+    <ion-header>
+
+        <ion-navbar color="primary">
+           
+         
+      
+          <ion-title>
+            Hotel
+          </ion-title>
+      
+          <ion-buttons end>
+            <button ion-button icon-only (click)="takePhoto(0)">
+              <ion-icon name="attach"></ion-icon>
+            
+            </button>
+            <button ion-button icon-only (click)="presentPopover()">
+                <ion-icon name="more"></ion-icon>
+              </button>
+           
+          </ion-buttons>
+        </ion-navbar>
+      
+      </ion-header>
+<ion-content padding>
+  <div class="container">
+    <div class="form">
+      <form [formGroup]="hotelForm">
+          <p></p>
+          <div class="photo">
+              <p *ngIf="!captureDataUrl"> Upload Image (via camera or Photo Library). </p>
+                <img [src]="captureDataUrl" alt="uploaded" *ngIf="captureDataUrl" class="img-upload">
+                <button *ngIf="captureDataUrl" (click)="upload()"  ion-button class="btn-upload" clear><ion-icon name="heart" style="font-size: 26px;" color="light"></ion-icon></button>
+  
+            </div>
+            <ion-list>
+              <ion-item>
+                <ion-label floating>Hotel Name</ion-label>
+                <ion-input type="text" formControlName="name" [(ngModel)]="hotel.hotelname"></ion-input>
+              </ion-item>
+              <div class="error" *ngFor="let validate of validation_messages.hotel">
+                  <div class="messages" *ngIf="hotelForm.get('name').hasError(validate.type) && (hotelForm.get('name').dirty || hotelForm.get('name').touched)">
+                    {{validate.message}}
+                  </div>
+                  </div>
+              <ion-item>
+                  <ion-label floating>Location</ion-label>
+                  <ion-input type="text" formControlName="location" [(ngModel)]="hotel.location"></ion-input>
+                </ion-item>
+                <div class="error" *ngFor="let validate of validation_messages.location">
+                    <div class="messages" *ngIf="hotelForm.get('location').hasError(validate.type) && (hotelForm.get('location').dirty || hotelForm.get('location').touched)">
+                      {{validate.message}}
+                    </div>
+                    </div>
+                <ion-item>
+                    <ion-label floating>Contact Info</ion-label>
+                    <ion-input type="tel" formControlName="contact" [(ngModel)]="hotel.contact"></ion-input>
+                  </ion-item>
+                  <div class="error" *ngFor="let validate of validation_messages.contact">
+                      <div class="messages" *ngIf="hotelForm.get('contact').hasError(validate.type) && (hotelForm.get('contact').dirty || hotelForm.get('contact').touched)">
+                        {{validate.message}}
+                      </div>
+                      </div>
+                  <ion-item>
+                      <ion-label floating>Description</ion-label>
+                      <ion-input type="text" formControlName="description" [(ngModel)]="hotel.description"></ion-input>
+                    </ion-item>
+                    <div class="error" *ngFor="let validate of validation_messages.description">
+                        <div class="messages" *ngIf="hotelForm.get('description').hasError(validate.type) && (hotelForm.get('description').dirty || hotelForm.get('description').touched)">
+                          {{validate.message}}
+                        </div>
+                        </div>
+                    <br>
+                    <button ion-button color="dark" round full [disabled]="!hotelForm.valid" (click)="createHotel()">Create Hotel</button>
+            </ion-list>
+      </form>
+      
+    </div>
+  </div>
+  <ion-fab right bottom>
+      <button ion-fab color="primary" (click)="takePhoto(1)"><ion-icon name="md-camera"></ion-icon></button>
+    </ion-fab>
+</ion-content>

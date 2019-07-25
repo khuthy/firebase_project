@@ -16,6 +16,7 @@ import { HistoryPage } from '../pages/history/history';
 import { ProfilePage } from '../pages/profile/profile';
 import { PopoverComponent } from '../components/popover/popover';
 import { AddHotelPage } from '../pages/add-hotel/add-hotel';
+import { BookingPage } from '../pages/booking/booking';
 
 
 
@@ -33,7 +34,8 @@ import { AddHotelPage } from '../pages/add-hotel/add-hotel';
     HistoryPage,
     ProfilePage,
     PopoverComponent,
-    AddHotelPage
+    AddHotelPage,
+    BookingPage
     
   ],
   imports: [
@@ -52,7 +54,8 @@ import { AddHotelPage } from '../pages/add-hotel/add-hotel';
     HistoryPage,
     ProfilePage,
     PopoverComponent,
-    AddHotelPage
+    AddHotelPage,
+    BookingPage
     
   ],
   providers: [

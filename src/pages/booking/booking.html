@@ -1,0 +1,68 @@
+<!--
+  Generated template for the BookingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Booking</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <div class="dates">
+     
+        <ion-item>
+          <ion-label floating>Check-In date</ion-label>
+          <ion-datetime yearValues="2022,2021,2020,2019" style="color: rgb(126, 30, 56); border-bottom: 1px solid black" displayFormat="DD/MM/YYYY"
+            [(ngModel)]="booking.checkin"></ion-datetime>
+        </ion-item>
+  
+  
+        <ion-item>
+          <ion-label floating style="color: black; font-size: 100%; font-weight: 500">Check-out date</ion-label>
+          <ion-datetime yearValues="2022,2021,2020,2019" style="color: rgb(126, 30, 56); border-bottom: 1px solid black" displayFormat="DD/MM/YYYY"
+            [(ngModel)]="booking.checkout"></ion-datetime>
+        </ion-item>
+        {{booking.checkin.dd}}
+      </div>
+      <div class="guests">
+  
+        <ion-item>
+          <ion-label floating style="color: black; font-size: 100%; font-weight: 500"> Adults</ion-label>
+          <ion-select [(ngModel)]="booking.adults" style="color: rgb(126, 30, 56); border-bottom: 1px solid black">
+            <ion-option value="1">1</ion-option>
+            <ion-option value="2">2</ion-option>
+            <ion-option value="3">3</ion-option>
+            <ion-option value="4">4</ion-option>
+            <ion-option value="5">5</ion-option>
+            <ion-option value="6">6</ion-option>
+          </ion-select>
+        </ion-item>
+  
+  
+  
+        <ion-item>
+          <ion-label floating style="color: black; font-size: 100%; font-weight: 500">Children</ion-label>
+          <ion-select [(ngModel)]="booking.children" style="color: rgb(126, 30, 56); border-bottom: 1px solid black">
+              <ion-option>0</ion-option>
+            <ion-option value="1">1</ion-option>
+            <ion-option value="2">2</ion-option>
+            <ion-option value="3">3</ion-option>
+            <ion-option value="4">4</ion-option>
+            <ion-option value="5">5</ion-option>
+            <ion-option value="6">6</ion-option>
+          </ion-select>
+        </ion-item>
+  
+      </div>
+      <div class="btn">
+        <button id="next" (click)="cancel()" ion-button clear round large
+          style="color: #fff; width: 45%; letter-spacing: 3px; background:rgb(53, 52, 52)  ; font-size: 80%; padding: 5%; font-family:Georgia, 'Times New Roman', Times, serif;">Cancel</button>
+        <button id="skip" (click)="book()" ion-button clear round large
+          style="color: #fff; width: 45%; letter-spacing: 3px; background: rgb(126, 30, 56); font-size: 80%; padding: 5%; font-family:Georgia, 'Times New Roman', Times, serif;">Continue
+        </button>
+      </div>
+</ion-content>

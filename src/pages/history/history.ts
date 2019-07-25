@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { PopoverComponent } from '../../components/popover/popover';
-
+import * as firebase from 'firebase';
+import { fetchHotels } from '../../app/displayData';
 /**
  * Generated class for the HistoryPage page.
  *
@@ -16,6 +17,8 @@ import { PopoverComponent } from '../../components/popover/popover';
 })
 export class HistoryPage {
 
+  history: any;
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -25,6 +28,15 @@ export class HistoryPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HistoryPage');
+    var user = firebase.auth().currentUser;
+
+    if(user) {
+      var viewHistory = firebase.database().ref('booking/'+ user.uid);
+      viewHistory.on('value', resp => {
+        this.history = fetchHotels(resp);
+      })
+    }
+
   }
   
   presentPopover(){
@@ -32,4 +44,5 @@ export class HistoryPage {
     popover.present();
   }
 
+  
 }

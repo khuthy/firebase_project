@@ -60,8 +60,8 @@ export class RoomsPage {
     console.log('ionViewDidLoad RoomsPage');
     var user = firebase.auth().currentUser;
     if(user) {
-      this.addRooms = firebase.database().ref('rooms/'+user.uid);
-      this.publicRooms = firebase.database().ref('rooms/')
+      this.addRooms = firebase.database().ref('rooms/');
+      this.userId = user.uid;
     }else {
       this.navCtrl.setRoot(LoginPage);
     }
@@ -133,15 +133,10 @@ export class RoomsPage {
         RoomType: this.roomtype,
         Price: this.roomprice,
         Description: this.description,
-        image: this.captureDataUrl
+        image: this.captureDataUrl,
+        userUid: this.userId
    });
-   let publicRooms = this.publicRooms.push();
-   publicRooms.set({
-    RoomType: this.roomtype,
-    Price: this.roomprice,
-    Description: this.description,
-    image: this.captureDataUrl
-   })
+  
     alertSuccess.present();
     this.roomprice = null;
     this.roomtype = '';

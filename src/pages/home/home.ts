@@ -4,6 +4,7 @@ import { PopoverComponent } from '../../components/popover/popover';
 import { LoginPage } from '../login/login';
 import * as firebase from 'firebase';
 import { fetchHotels } from '../../app/displayData';
+import { BookingPage } from '../booking/booking';
 
 @Component({
   selector: 'page-home',
@@ -48,5 +49,9 @@ export class HomePage {
   presentPopover(){
     const popover = this.popoverCtrl.create(PopoverComponent);
     popover.present();
+  }
+
+  book(key: any){
+    this.navCtrl.push(BookingPage, key);
   }
 }

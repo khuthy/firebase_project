@@ -46,7 +46,7 @@ export class HotelPage {
        this.userId = user.uid;
        console.log(user);
        
-      this.displayRooms = firebase.database().ref('rooms/'+user.uid);
+      this.displayRooms = firebase.database().ref('rooms/');
       this.displayRooms.on('value', resp => {
         this.lists = fetchHotels(resp);
         

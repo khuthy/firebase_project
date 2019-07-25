@@ -20,13 +20,17 @@
 <ion-content padding>
 
   <div class="container">
-    <div class="hotels" *ngFor="let item of items;" (click)="view()">
+    <div class="hotels" *ngFor="let item of items;">
     
           <ion-card>
         <img src="{{item.image}}"/>
         <ion-card-content>
           <ion-card-title>
-              {{item.hotelName}}
+            <div class="flex">
+            <h1 style="color: rgb(0, 0, 0); font-weight: bold">R {{item.Price}}</h1>  
+              <button round color="primary" ion-button (click)="book(item.Price)">Book Now</button>
+            </div>
+            
             </ion-card-title>
           <p>
               {{item.Description}}

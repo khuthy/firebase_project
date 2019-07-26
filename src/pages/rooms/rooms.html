@@ -22,27 +22,10 @@
     <div class="container">
         <div class="form">
           <form [formGroup]="roomForm">
-              <div class="photo">
-                  <p *ngIf="!captureDataUrl"> Upload Image (via camera or Photo Library).</p>
-                    <img [src]="captureDataUrl" alt="uploaded" *ngIf="captureDataUrl" class="img-upload">
-                    <button *ngIf="captureDataUrl" (click)="upload()" ion-button class="btn-upload" color="light">Upload Image</button>
-          
-                </div>
+            
                 <ion-list>
-                    <ion-item>
-                    
-                        <ion-label>Select Hotel</ion-label>
-                        <ion-select formControlName="hotel" [(ngModel)]="hotel">
-                          <ion-option value="{{hotel.id}}" *ngFor="let hotel of items;">
-                            {{hotel.hotelName}}
-                          </ion-option>
-                        </ion-select>
-                </ion-item>
-                <div class="error" *ngFor="let validate of validation_messages.hotel">
-                    <div class="messages" *ngIf="roomForm.get('hotel').hasError(validate.type) && (roomForm.get('hotel').dirty || roomForm.get('hotel').touched)">
-                      {{validate.message}}
-                    </div>
-                    </div>
+
+
 
                   <ion-item>
                     
@@ -61,6 +44,15 @@
                         {{validate.message}}
                       </div>
                       </div>
+                      <ion-item>
+                        <ion-label floating>Description</ion-label>
+                        <ion-input type="text" formControlName="description" [(ngModel)]="description"></ion-input>
+                      </ion-item>
+                      <div class="error" *ngFor="let validate of validation_messages.description">
+                          <div class="messages" *ngIf="roomForm.get('description').hasError(validate.type) && (roomForm.get('description').dirty || roomForm.get('description').touched)">
+                            {{validate.message}}
+                          </div>
+                          </div>
                   <ion-item>
                       <ion-label floating>Price</ion-label>
                       <ion-input type="number" formControlName="roomprice" [(ngModel)]="roomprice"></ion-input>
@@ -70,8 +62,13 @@
                           {{validate.message}}
                         </div>
                         </div>
+                        <div class="photo">
+                          <p  *ngIf="!captureDataUrl" style="border: 1px solid #c00; padding: .5em;">Select Picture from Library or Camera</p>
+                            <img [src]="captureDataUrl" alt="uploaded" *ngIf="captureDataUrl" class="img-upload">
+                            <button ion-button *ngIf="captureDataUrl" full (click)="takePhoto(0)">Change Image</button>
+                        </div>
                         <br>
-                        <button ion-button color="dark" round full [disabled]="roomForm.valid" (click)="createRoom()">Create Room</button>
+                        <button ion-button color="dark" round full [disabled]="!roomForm.valid" (click)="createRoom()">Create Room</button>
                 </ion-list>
           </form>
           

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NavController, PopoverController } from 'ionic-angular';
+import { NavController, PopoverController, LoadingController } from 'ionic-angular';
 import { PopoverComponent } from '../../components/popover/popover';
 import { LoginPage } from '../login/login';
 import * as firebase from 'firebase';
@@ -13,12 +13,13 @@ export class HomePage {
 
   items;
 
-  displayHotels = firebase.database().ref('hotels/');
-  displayRooms =  firebase.database().ref('rooms/ ');
+  displayHotels;
+
  
   constructor(
     public navCtrl: NavController,
-    public popoverCtrl: PopoverController
+    public popoverCtrl: PopoverController,
+    public loadingCtrl: LoadingController
     ) {
       
     }
@@ -26,8 +27,17 @@ export class HomePage {
     ionViewDidLoad() {
       var user = firebase.auth().currentUser;
       if(user) {
+        let loaders = this.loadingCtrl.create({
+          content: 'Loading Hotel, Please wait...',
+          duration: 3000
+        })
+        loaders.present()
+        this.displayHotels = firebase.database().ref('rooms/');
         this.displayHotels.on('value', resp => {
+         
           this.items = fetchHotels(resp);
+          console.log(resp)
+          
         })
       }else {
         

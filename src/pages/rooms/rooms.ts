@@ -22,16 +22,21 @@ export class RoomsPage {
  
   roomtype: string;
   roomprice: string;
-  hotel: string;
+  description: string;
+
+  addRooms: any;
+  url: any;
+  publicRooms: any;
+
   userId: any;
   items: any = [];
-  displayHotels = firebase.database().ref('hotels/');
+  displayHotels = firebase.database().ref('rooms/');
   captureDataUrl: string;
   roomForm: FormGroup;
 
   validation_messages = {
     'roomtype': [{type: 'required', message: 'Room type is required.'}],
-    'hotel': [{type: 'required', message: 'Room type is required.'}],
+    'description': [{type: 'required', message: 'Description is required.'}],
     'roomprice':  [{type: 'required', message: 'Price is required.'}]
   }
 
@@ -46,7 +51,7 @@ export class RoomsPage {
     ) {
       this.roomForm = this.forms.group({
         roomtype: new FormControl('', Validators.required),
-        hotel: new FormControl('', Validators.required),
+        description: new FormControl('', Validators.required),
         roomprice: new FormControl('', Validators.required)
       })
   }
@@ -55,12 +60,10 @@ export class RoomsPage {
     console.log('ionViewDidLoad RoomsPage');
     var user = firebase.auth().currentUser;
     if(user) {
-      this.userId = user.uid;
-      this.displayHotels.on('value', resp => {
-        this.items = fetchHotels(resp);
-      })
+      this.addRooms = firebase.database().ref('rooms/'+user.uid);
+      this.publicRooms = firebase.database().ref('rooms/')
     }else {
-       this.navCtrl.setRoot(LoginPage);
+      this.navCtrl.setRoot(LoginPage);
     }
   }
 
@@ -81,6 +84,7 @@ export class RoomsPage {
       targetHeight: 500,
       targetWidth: 500
     }
+   
     
     this.camera.getPicture(options).then((captureDataUrl) => {
      // imageData is either a base64 encoded string or a file URI
@@ -92,6 +96,58 @@ export class RoomsPage {
     }, (err) => {
      // Handle error
     });
+  }
+
+  upload() {
+    let loaders = this.loadingCtrl.create({
+      content: 'Uploading, Please wait...',
+      duration: 3000
+    });
+    let storageRef = firebase.storage().ref();
+    const filename = Math.floor(Date.now() / 1000);
+    const imageRef = storageRef.child(`my-rooms/${filename}.jpg`);
+    loaders.present()
+    imageRef.putString(this.captureDataUrl, firebase.storage.StringFormat.DATA_URL)
+    .then((snapshot) => {
+      console.log('image uploaded');
+      this.url = snapshot.downloadURL
+      let alert = this.alertCtrl.create({
+        title: 'Image Upload', 
+        subTitle: 'Image Uploaded to firebase',
+        buttons: ['Ok']
+      }).present();
+    });
+  }
+
+  createRooms() {
+    
+    let alertSuccess = this.alertCtrl.create({
+      title: 'adding a Room',
+      subTitle: 'Room successfully added!',
+      buttons: ['Ok']
+    })
+  
+    this.upload();
+     let newRooms = this.addRooms.push();
+      newRooms.set({
+        RoomType: this.roomtype,
+        Price: this.roomprice,
+        Description: this.description,
+        image: this.captureDataUrl
+   });
+   let publicRooms = this.publicRooms.push();
+   publicRooms.set({
+    RoomType: this.roomtype,
+    Price: this.roomprice,
+    Description: this.description,
+    image: this.captureDataUrl
+   })
+    alertSuccess.present();
+    this.roomprice = null;
+    this.roomtype = '';
+    this.description = '';
+    this.navCtrl.pop();
+   
   }
   
 

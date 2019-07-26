@@ -21,22 +21,22 @@
 
   <div class="container">
     <div class="hotels" *ngFor="let item of items;" (click)="view()">
-      <div class="cover">
-         <img src="{{item.image}}" alt="item.hotelName" class="imges">
-         <article class="text-btn">
-            <h3>{{item.hotelName}}</h3>
-            <p>{{item.Description}}</p>
-         <ion-row>
-           <ion-col col-4><button ion-button clear only-icon><ion-icon name="heart"></ion-icon></button></ion-col>
-           <ion-col col-4></ion-col>
-           <ion-col col-4></ion-col>
-         </ion-row>
-        </article>
-     
-      </div>
-     
-    </div>
-    <div class="rooms"></div>
+    
+          <ion-card>
+        <img src="{{item.image}}"/>
+        <ion-card-content>
+          <ion-card-title>
+              {{item.hotelName}}
+            </ion-card-title>
+          <p>
+              {{item.Description}}
+            
+          </p>
+        </ion-card-content>
+      </ion-card>
+     </div>
+    
+  
   </div>
  
 </ion-content>

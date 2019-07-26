@@ -56,7 +56,7 @@ export class PopoverComponent {
     this.close();
   }
   rooms () {
-    this.navCtrl.push(RoomsPage);
+    this.navCtrl.push(HotelPage);
     this.close();
   }
 

@@ -4,65 +4,77 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-  <ion-navbar color="primary">
-    <ion-title>Booking</ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content>
+<div class="container">
+  <div class="hotel" *ngFor="let hotel of hotels;">
+<div class="thumb" >
+  <div class="box">
+    <img src="{{hotel.image}}" class="thumbnail" alt="hotel">
+    <button class="fas" ion-button clear (click)="goBack()"><ion-icon name="arrow-back"></ion-icon></button>
+  </div>
+   
+   
+  <div padding>
+      <ion-segment [(ngModel)]="pet">
+        <ion-segment-button value="Description">
+          Description
+        </ion-segment-button>
+        <ion-segment-button value="Contact">
+          Contact Us
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+    
+    <div [ngSwitch]="pet">
+      <ion-list >
+        <ion-item>
+        
+        </ion-item>
+      </ion-list>
+      <div *ngSwitchCase="'Description'">
+        <div class="describe" padding>
+          <h4>{{hotel.hotelName}}</h4>
+          <p>{{hotel.Description}}</p>
+      </div>
+      </div>
+    
+      <ion-list *ngSwitchCase="'Contact'">
+        <ion-item padding>
+          <ion-icon item-start name="call">
+          </ion-icon>
+          <h2>{{hotel.Contact}}</h2>
+        </ion-item>
+        <ion-item padding>
+            <ion-icon item-start name="pin">
+            </ion-icon>
+            <h2>{{hotel.Location}}</h2>
+          </ion-item>
+        ...
+      </ion-list>
+    </div>
 
-<ion-content padding>
+</div>
 
-    <div class="dates">
-     
-        <ion-item>
-          <ion-label floating>Check-In date</ion-label>
-          <ion-datetime yearValues="2022,2021,2020,2019" style="color: rgb(126, 30, 56); border-bottom: 1px solid black" displayFormat="DD/MM/YYYY"
-            [(ngModel)]="booking.checkin"></ion-datetime>
-        </ion-item>
-  
-  
-        <ion-item>
-          <ion-label floating style="color: black; font-size: 100%; font-weight: 500">Check-out date</ion-label>
-          <ion-datetime yearValues="2022,2021,2020,2019" style="color: rgb(126, 30, 56); border-bottom: 1px solid black" displayFormat="DD/MM/YYYY"
-            [(ngModel)]="booking.checkout"></ion-datetime>
-        </ion-item>
-        {{booking.checkin.dd}}
-      </div>
-      <div class="guests">
-  
-        <ion-item>
-          <ion-label floating style="color: black; font-size: 100%; font-weight: 500"> Adults</ion-label>
-          <ion-select [(ngModel)]="booking.adults" style="color: rgb(126, 30, 56); border-bottom: 1px solid black">
-            <ion-option value="1">1</ion-option>
-            <ion-option value="2">2</ion-option>
-            <ion-option value="3">3</ion-option>
-            <ion-option value="4">4</ion-option>
-            <ion-option value="5">5</ion-option>
-            <ion-option value="6">6</ion-option>
-          </ion-select>
-        </ion-item>
-  
-  
-  
-        <ion-item>
-          <ion-label floating style="color: black; font-size: 100%; font-weight: 500">Children</ion-label>
-          <ion-select [(ngModel)]="booking.children" style="color: rgb(126, 30, 56); border-bottom: 1px solid black">
-              <ion-option>0</ion-option>
-            <ion-option value="1">1</ion-option>
-            <ion-option value="2">2</ion-option>
-            <ion-option value="3">3</ion-option>
-            <ion-option value="4">4</ion-option>
-            <ion-option value="5">5</ion-option>
-            <ion-option value="6">6</ion-option>
-          </ion-select>
-        </ion-item>
-  
-      </div>
-      <div class="btn">
-        <button id="next" (click)="cancel()" ion-button clear round large
-          style="color: #fff; width: 45%; letter-spacing: 3px; background:rgb(53, 52, 52)  ; font-size: 80%; padding: 5%; font-family:Georgia, 'Times New Roman', Times, serif;">Cancel</button>
-        <button id="skip" (click)="book()" ion-button clear round large
-          style="color: #fff; width: 45%; letter-spacing: 3px; background: rgb(126, 30, 56); font-size: 80%; padding: 5%; font-family:Georgia, 'Times New Roman', Times, serif;">Continue
-        </button>
-      </div>
+  </div>
+  <h3 *ngIf="notFound">{{notFound}}</h3>
+  <div class="rooms">
+ <ion-slides spaceBetween="-50">
+   <ion-slide *ngFor="let room of rooms;" padding>
+      <div class="box2" (click)="bookNow(room.key)">
+          <div class="log">
+           <button class="fas" ion-button icon-only clear><ion-icon name="heart" ></ion-icon></button>
+             <img src="{{room.image}}" class="thumbnail">
+            
+             <div class="text-markup">
+               <p style="font-weight: 400; font-size: 17px; color: #f4f4f4; text-shadow: 1px 1px #222; letter-spacing: .3rem;">R. {{room.Price}}</p>
+                <p style="font-weight: 400; font-size: 15px; color: #f4f4f4; text-shadow: 1px 1px #222">{{room.RoomType}}</p>
+              </div>
+          </div> 
+         </div>
+   </ion-slide>
+ </ion-slides>
+  </div>
+</div>
+
+
 </ion-content>

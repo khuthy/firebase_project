@@ -12,7 +12,7 @@ import { BookingPage } from '../booking/booking';
 })
 export class HomePage {
 
-  items;
+  items: any[];
 
   displayHotels;
 
@@ -30,28 +30,34 @@ export class HomePage {
       if(user) {
         let loaders = this.loadingCtrl.create({
           content: 'Loading Hotel, Please wait...',
-          duration: 3000
+          duration: 300
         })
         loaders.present()
-        this.displayHotels = firebase.database().ref('rooms/');
-        this.displayHotels.on('value', resp => {
-         
-          this.items = fetchHotels(resp);
-          console.log(resp)
+      
+        
+         let val = firebase.database().ref().child('hotels/')
+        val.on('value', (snap) => {
+          if(snap.exists()) {
+            this.items = fetchHotels(snap); 
+          }else {
+            console.log('no data to display');
+            
+          }
           
-        })
+        }) 
       }else {
         
         this.navCtrl.setRoot(LoginPage)
       }
     }
+  
 
   presentPopover(){
     const popover = this.popoverCtrl.create(PopoverComponent);
     popover.present();
   }
 
-  book(key: any){
+  viewHotel(key: any){
     this.navCtrl.push(BookingPage, key);
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, AlertController, LoadingController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, AlertController, LoadingController, ViewController} from 'ionic-angular';
 import { PopoverComponent } from '../../components/popover/popover';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -33,7 +33,7 @@ export class RoomsPage {
   displayHotels = firebase.database().ref('rooms/');
   captureDataUrl: string;
   roomForm: FormGroup;
-
+  key: any;
   validation_messages = {
     'roomtype': [{type: 'required', message: 'Room type is required.'}],
     'description': [{type: 'required', message: 'Description is required.'}],
@@ -47,7 +47,8 @@ export class RoomsPage {
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public forms: FormBuilder,
-    private camera: Camera
+    private camera: Camera,
+    public viewCtrl: ViewController
     ) {
       this.roomForm = this.forms.group({
         roomtype: new FormControl('', Validators.required),
@@ -60,8 +61,9 @@ export class RoomsPage {
     console.log('ionViewDidLoad RoomsPage');
     var user = firebase.auth().currentUser;
     if(user) {
-      this.addRooms = firebase.database().ref('rooms/');
+
       this.userId = user.uid;
+      this.key = this.navParams.get('key');
     }else {
       this.navCtrl.setRoot(LoginPage);
     }
@@ -120,30 +122,37 @@ export class RoomsPage {
   }
 
   createRooms() {
-    
+    this.upload();
     let alertSuccess = this.alertCtrl.create({
       title: 'adding a Room',
       subTitle: 'Room successfully added!',
       buttons: ['Ok']
     })
-  
-    this.upload();
-     let newRooms = this.addRooms.push();
+
+   
+
+    
+    let ref = firebase.database().ref().child('rooms/');
+
+     let newRooms = ref.push();
       newRooms.set({
         RoomType: this.roomtype,
         Price: this.roomprice,
         Description: this.description,
-        image: this.captureDataUrl,
-        userUid: this.userId
+        hotelKey: this.key,
+        userUid: this.userId,
+        image: this.captureDataUrl
+
    });
   
     alertSuccess.present();
-    this.roomprice = null;
-    this.roomtype = '';
-    this.description = '';
-    this.navCtrl.pop();
-   
+    this.close()
+    
   }
+
+  close() {
+    this.viewCtrl.dismiss()
+ }
   
 
 }

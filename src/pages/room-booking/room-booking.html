@@ -1,0 +1,35 @@
+<ion-content>
+
+    <div class="container">
+        <div class="hotel" *ngFor="let room of rooms;">
+      <div class="thumb" >
+        <div class="box">
+          <img src="{{room.image}}" class="thumbnail" alt="hotel">
+          <button class="fas" ion-button clear (click)="goBack()"><ion-icon name="arrow-back"></ion-icon></button>
+          <div class="title" style="text-align: center;">
+            <ion-slides spaceBetween="-10" slidesPerView="4">
+            <ion-slide>
+              <button ion-fab color="dark"><ion-icon name="wifi"></ion-icon></button>
+              <p><strong>Free Wi-fi</strong></p>
+            </ion-slide>
+            <ion-slide>
+                <button ion-fab color="dark"><ion-icon name="wine"></ion-icon></button>
+                <p><strong>Free Wine</strong></p>
+            </ion-slide>
+            <ion-slide>
+                <button ion-fab color="dark"><ion-icon name="pizza"></ion-icon></button>
+            </ion-slide>
+            <ion-slide>
+                <button ion-fab color="dark"><ion-icon name="laptop"></ion-icon></button>
+            </ion-slide>
+            </ion-slides>
+              <h3>R. {{room.Price}}</h3> 
+              <p>{{room.RoomType}} </p>
+              <p>{{room.Description}}</p>
+              <button ion-button class="btn" color="light" (click)="bookRoomNow(room.Price)">Book Now</button>
+           </div>
+        </div>
+      </div>
+     </div>
+     </div>
+      </ion-content>

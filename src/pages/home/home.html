@@ -20,27 +20,36 @@
 <ion-content padding>
 
   <div class="container">
-    <div class="hotels" *ngFor="let item of items;">
-    
-          <ion-card>
-        <img src="{{item.image}}"/>
-        <ion-card-content>
-          <ion-card-title>
-            <div class="flex">
-            <h1 style="color: rgb(0, 0, 0); font-weight: bold">R {{item.Price}}</h1>  
-              <button round color="primary" ion-button (click)="book(item.Price)">Book Now</button>
+   
+    <!-- <div class="hotels" *ngFor="let item of items;">
+    <div class="card">
+     
+      <div class="flex">
+              <div class="title">
+                  <h4> {{item.hotelName}} </h4> 
+                  <small>{{item.Location}}</small>
+              </div>
+            
+              <button round color="primary" ion-button >View Hotel</button>
             </div>
-            
-            </ion-card-title>
-          <p>
-              {{item.Description}}
-            
-          </p>
-        </ion-card-content>
-      </ion-card>
-     </div>
+    </div>
+      
+   </div> -->
+
+   <div class="box" *ngFor="let item of items" (click)="viewHotel(item.key)">
+    <div class="log">
+     <button class="fas" ion-button icon-only clear><ion-icon name="heart" ></ion-icon></button>
+       <img src="{{item.image}}" class="thumbnail">
+      
+       <div class="text-markup">
+         <p style="font-weight: 400; font-size: 17px; color: #f4f4f4; text-shadow: 1px 1px #222; letter-spacing: .3rem;">{{item.hotelName}}</p>
+          <p style="font-weight: 400; font-size: 15px; color: #f4f4f4; text-shadow: 1px 1px #222">{{item.Location}}</p>
+        </div>
+    </div> 
+   </div>
     
   
   </div>
+
  
 </ion-content>

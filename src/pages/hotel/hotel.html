@@ -7,7 +7,7 @@
          
       
           <ion-title>
-            Rooms
+            Hotel List
           </ion-title>
       
           <ion-buttons end>
@@ -23,18 +23,32 @@
 
   <ion-list>
     <p>Available Rooms so far...</p>
-    <ion-item *ngFor="let list of lists;">
+   <!--  <ion-item >
     
           <ion-thumbnail item-start>
               <img src="{{list.image}}" width="100%" height="50%" class="images">
             </ion-thumbnail>
-            <h2>{{list.RoomType}}</h2>
-            <p>{{list.Description}}</p>
-            <button ion-button clear item-end><ion-icon name="trash"></ion-icon></button>
+            <h2>{{list.hotelName}}</h2>
+            <p>{{list.Location}}</p>
+            {{list.key}}
+            <button ion-button clear item-end (click)="addRoom(list.key)">View rooms</button>
      
-    </ion-item>
+    </ion-item> -->
 
   </ion-list>
+  <p *ngIf="notFound" style="padding: 1em; background-color: rgba(133, 7, 7, 0.575);border-radius: 5px; ">{{notFound}}</p>
+  <div class="container" *ngFor="let list of lists;">
+    <div class="image">
+        <h2>{{list.hotelName}}</h2>
+      <img src="{{list.image}}" alt="{{list.hotelName}}">
+      <p>{{list.Location}}</p>
+    </div>
+    <div class="info">
+        <button ion-button clear item-end (click)="addRoom(list.key)">View rooms</button>
+        <button ion-button clear item-end (click)="addRoom(list.key)">Delete Hotel</button>
+     </div>
+  </div>
+
   <ion-fab right bottom>
       <button ion-fab color="primary" (click)="modalHotel()"><ion-icon name="add"></ion-icon></button>
     </ion-fab>

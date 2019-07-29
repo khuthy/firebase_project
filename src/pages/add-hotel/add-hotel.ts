@@ -82,9 +82,7 @@ export class AddHotelPage {
     var user = firebase.auth().currentUser;
      if(user) {
        this.userId = user.uid;
-       console.log(user);
-       
-       this.addHotels = firebase.database().ref('hotels/'+this.userId);
+      
      }else {
         this.navCtrl.setRoot(LoginPage);
      }
@@ -148,38 +146,26 @@ export class AddHotelPage {
       subTitle: 'successfully added!',
       buttons: ['Ok']
     })
-   if(this.url != '') {
-     let newHotel = this.addHotels.push();
+    
+    this.upload();
+   
+
+    let ref = firebase.database().ref().child('hotels');
+   
+     let newHotel = ref.push();
      newHotel.set({
      hotelName: this.hotel.hotelname,
      Location: this.hotel.location,
      Description: this.hotel.description,
      Contact: this.hotel.contact,
+     userUid: this.userId,
      image: this.captureDataUrl
    });
 
-   let publicHotel = this.publicHotel.push();
-   publicHotel.set({
-     hotelName: this.hotel.hotelname,
-     Location: this.hotel.location,
-     Description: this.hotel.description,
-     image: this.captureDataUrl
-   })
-
-    this.hotel.hotelname = '';
-    this.hotel.location = '';
-    this.hotel.description = '';
-    this.hotel.contact = '';
-    this.captureDataUrl = '';
+  
      alert.present();
 
-   }else {
-    let alert = this.alertCtrl.create({
-      title: 'Warning!',
-      subTitle: 'Upload image first.',
-      buttons: ['Ok']
-    }).present();
-   }
+   this.close();
    
    
   }

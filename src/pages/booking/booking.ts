@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import { LoginPage } from '../login/login';
 import { fetchHotels } from '../../app/displayData';
 import { HistoryPage } from '../history/history';
+import { RoomBookingPage } from '../room-booking/room-booking';
 /**
  * Generated class for the BookingPage page.
  *
@@ -26,12 +27,13 @@ booking = {
  
 }
 
-
-  USER_UID: any;
-  createBooking: any;
+ notFound: string = '';
+  
+  hotels: any;
   KEY: any;
-  seeMore: any;
+  rooms: any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.KEY = this.navParams.data;
   }
 
   ionViewDidLoad() {
@@ -41,8 +43,23 @@ booking = {
     
 
     if(user) {
-      this.USER_UID = user.uid;
-      this.createBooking = firebase.database().ref('booking/'+ this.USER_UID);
+     
+      const Ref = firebase.database().ref();
+      Ref.child('hotels').orderByKey().equalTo(this.KEY).on('value', (hotel) => {
+        
+        if(hotel.exists()){
+          this.hotels = fetchHotels(hotel)
+        }else {
+          this.notFound = "Sorry!. There are not rooms for you in this hotel. Please Contact the Adminstrator Above if you have any Concern.";
+        } 
+            
+
+      })
+
+      Ref.child('rooms').orderByChild('hotelKey').equalTo(this.KEY).on('value', (room) => {
+        this.rooms = fetchHotels(room)   
+      })
+
      
       
     }else {
@@ -50,21 +67,16 @@ booking = {
       this.navCtrl.setRoot(LoginPage)
     }
   }
+
+  bookNow(roomKey) {
+    this.navCtrl.push(RoomBookingPage, roomKey);
+  }
+
+  goBack() {
+    this.navCtrl.pop();
+  }
   
 
-  createBook(){
-    var price = this.navParams.data;
-     var total = price*(this.booking.children+this.booking.adults)
 
-    let book = this.createBooking.push();
-    book.set({
-      Total: total,
-      CheckIn: this.booking.checkin,
-      Checkout: this.booking.checkout,
-      Adults: this.booking.adults,
-      Children: this.booking.children
-    })
-    this.navCtrl.setRoot(HistoryPage);
-  }
 
 }

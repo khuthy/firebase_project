@@ -9,6 +9,7 @@ import { AddHotelPage } from '../add-hotel/add-hotel';
 import { fetchHotels } from '../../app/displayData';
 import { RoomsPage } from '../rooms/rooms';
 import { empty } from 'rxjs/Observer';
+import { ViewRoomsPage } from '../view-rooms/view-rooms';
 
 /**
  * Generated class for the HotelPage page.
@@ -28,6 +29,7 @@ export class HotelPage {
   userId: any;
   displayRooms: any;
   lists: any;
+  notFound: string = '';
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -43,12 +45,17 @@ export class HotelPage {
    
      var user = firebase.auth().currentUser;
      if(user) {
-       this.userId = user.uid;
-       console.log(user);
+      
+     //console.log(user.uid);
+     
        
-      this.displayRooms = firebase.database().ref('rooms/');
-      this.displayRooms.on('value', resp => {
-        this.lists = fetchHotels(resp);
+      let ref = firebase.database().ref().child('hotels');
+      ref.orderByChild('userUid').equalTo(user.uid).on('value', (snap) => {
+        if(snap.exists()) {
+         this.lists = fetchHotels(snap); 
+        }else{
+          this.notFound = "You have no Hotels Added Yet";
+        }
         
       })
      }else {
@@ -62,7 +69,12 @@ export class HotelPage {
   }
 
   modalHotel() {
-    this.modalCtrl.create(RoomsPage).present();
+    this.modalCtrl.create(AddHotelPage).present();
+
+  }
+
+  addRoom(key) {
+    this.navCtrl.push(ViewRoomsPage, key)
 
   }
 

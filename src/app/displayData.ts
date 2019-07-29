@@ -13,6 +13,8 @@
 export const fetchHotels = snapshots => {
     let hotels = [];
 
+
+
     snapshots.forEach(element => {
         let item = element.val();
         item.key = element.key;

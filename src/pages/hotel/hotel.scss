@@ -1,30 +1,19 @@
 page-hotel {
-    .photo {
-        display: flex;
-        background-image: url('../../assets/imgs/UploadLimit-Header.png');
-        background-position: center center;
-        background-size: contain;
-        background-repeat: no-repeat;
-        height: 30vh;
-        position: relative;
-       .img-upload {
-        width: 100%;
-        object-fit: cover;
-        object-position: center;
-        z-index: 0;
-    } 
-    .btn-upload {
-       position: absolute;
-       z-index: 1;
-       bottom: 1rem;
-       left: 1rem;
-    }
-}
-.error {
-    color: rgba(247, 1, 1, 0.596);
+   
+.container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
+    height: 30%;
+    width: 100%;
+    border: 1px solid #333;
+}
+.image {
+    width: 50%;
+    border: 1px solid #c00;
+}
+.info {
+    width: 50%;
+    border: 1px solid #cc0;
 }
 
 }

@@ -17,6 +17,9 @@ import { ProfilePage } from '../pages/profile/profile';
 import { PopoverComponent } from '../components/popover/popover';
 import { AddHotelPage } from '../pages/add-hotel/add-hotel';
 import { BookingPage } from '../pages/booking/booking';
+import { ViewRoomsPage } from '../pages/view-rooms/view-rooms';
+import { RoomBookingPage } from '../pages/room-booking/room-booking';
+import { BookingFormPage } from '../pages/booking-form/booking-form';
 
 
 
@@ -35,7 +38,10 @@ import { BookingPage } from '../pages/booking/booking';
     ProfilePage,
     PopoverComponent,
     AddHotelPage,
-    BookingPage
+    BookingPage,
+    ViewRoomsPage,
+    RoomBookingPage,
+    BookingFormPage
     
   ],
   imports: [
@@ -55,7 +61,10 @@ import { BookingPage } from '../pages/booking/booking';
     ProfilePage,
     PopoverComponent,
     AddHotelPage,
-    BookingPage
+    BookingPage,
+    ViewRoomsPage,
+    RoomBookingPage,
+    BookingFormPage
     
   ],
   providers: [
